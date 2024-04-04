@@ -10,10 +10,10 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the entire backend directory structure to the working directory
+# Copy the remaining backend source code to the working directory
 COPY . .
 
-# Expose port 80 to the outside world
+# Expose port 3000 to the outside world
 EXPOSE 80
 
 # Define the command to run the application
