@@ -1,4 +1,3 @@
-
 # Use an official Node.js runtime as the base image
 FROM node:14
 
@@ -6,12 +5,12 @@ FROM node:14
 WORKDIR /app
 
 # Copy package.json and package-lock.json from the root directory to the working directory
-COPY ../package*.json ./
+COPY ../../package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the remaining backend source code from the current directory to the working directory
+# Copy the remaining backend source code from the backend directory to the working directory
 COPY . .
 
 # Expose port 3000 to the outside world
@@ -19,5 +18,3 @@ EXPOSE 80
 
 # Define the command to run the application
 CMD ["node", "server.js"]
-
-
