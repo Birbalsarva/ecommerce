@@ -1,10 +1,23 @@
-version: '3.8'
+version: '3'
 services:
+  backend:
+    build: ./backend
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/Ecommerce
+    # Add other configuration as needed
+
   frontend:
-    build: ./frontend             
+    build: ./frontend
     ports:
       - "3000:3000"
-  backend:
-    build: ./backend              
+    # Add other configuration as needed
+
+  mongodb:
+    image: mongo
     ports:
-      - "80:80"
+      - "27017:27017"
+    # Add other configuration as needed
