@@ -1,4 +1,4 @@
-  GNU nano 6.2                                           Dockerfile                                                     # Use an official Node.js runtime as the base image
+# Use an official Node.js runtime as the base image
 FROM node:14
 
 # Set the working directory in the container
@@ -13,7 +13,7 @@ RUN npm install
 # Copy the remaining backend source code to the working directory
 COPY . .
 
-# Expose port 3000 to the outside world
+# Expose port 80 to the outside world
 EXPOSE 80
 
 # Define the command to run the application
