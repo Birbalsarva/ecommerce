@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from the Git repository
-                git url: 'https://github.com/Birbalsarva/ecommerce.git'
+                git url: "https://github.com/Birbalsarva/ecommerce.git", branch: "main"
             }
         }
         
