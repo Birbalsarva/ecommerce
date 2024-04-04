@@ -4,11 +4,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the Git repository
-                git url: "https://github.com/Birbalsarva/ecommerce.git", branch: "main"
+                 git url: "https://github.com/Birbalsarva/ecommerce.git", branch: "main"
             }
         }
-        
         stage('Build') {
             steps {
                 // Build the frontend Docker image
