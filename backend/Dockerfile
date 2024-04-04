@@ -1,3 +1,4 @@
+
 # Use an official Node.js runtime as the base image
 FROM node:14
 
@@ -18,7 +19,5 @@ EXPOSE 80
 
 # Define the command to run the application
 CMD ["node", "server.js"]
-
-
 
 
