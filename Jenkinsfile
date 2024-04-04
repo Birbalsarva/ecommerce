@@ -15,12 +15,12 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Build the frontend Docker image
-                    docker.build('frontend', './frontend')
+                    // Build the ecommerce-frontend Docker image
+                    docker.build('ecommerce-frontend', './frontend')
                     
-                    // Move to the backend directory and build the backend Docker image
+                    // Move to the backend directory and build the ecommerce-backend Docker image
                     dir('backend') {
-                        docker.build('backend', '.')
+                        docker.build('ecommerce-backend', '.')
                     }
                 }
             }
