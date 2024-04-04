@@ -22,9 +22,15 @@ pipeline {
         
         stage('Test') {
             steps {
-                // Run unit tests and integration tests
-                // Replace this with your actual test commands
-                sh './frontend/npm test'
+                // Install Node.js and npm
+                sh 'curl -fsSL https://deb.nodesource.com/setup_16.x | bash -'
+                sh 'apt-get install -y nodejs'
+                
+                // Install project dependencies
+                sh 'cd frontend && npm install'
+                
+                // Run unit tests and integration tests for the frontend
+                sh 'cd frontend && npm test'
             }
         }
         
