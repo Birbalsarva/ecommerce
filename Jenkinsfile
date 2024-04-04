@@ -15,7 +15,11 @@ pipeline {
                 }
                 // Build the backend Docker image
                 script {
-                    docker.build('backend', './backend')
+                    // Move to the backend directory
+                    dir('backend') {
+                        // Build the backend Docker image
+                        docker.build('backend', '../')
+                    }
                 }
             }
         }
