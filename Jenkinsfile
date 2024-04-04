@@ -1,25 +1,26 @@
 pipeline {
     agent any
     
+    environment {
+        NODEJS_VERSION = "16.x"
+    }
+    
     stages {
         stage('Checkout') {
             steps {
-                 git url: "https://github.com/Birbalsarva/ecommerce.git", branch: "main"
+                git url: "https://github.com/Birbalsarva/ecommerce.git", branch: "main"
             }
         }
+        
         stage('Build') {
             steps {
-                // Build the frontend Docker image
                 script {
+                    // Build the frontend Docker image
                     docker.build('frontend', './frontend')
-                }
-                // Build the backend Docker image
-                script {
-                    // Move to the backend directory
+                    
+                    // Move to the backend directory and build the backend Docker image
                     dir('backend') {
-                        // Build the backend Docker image
-                       // docker.build('backend', '../')
-                        docker.build('backend', './backend')
+                        docker.build('backend', '.')
                     }
                 }
             }
@@ -28,14 +29,14 @@ pipeline {
         stage('Test') {
             steps {
                 // Install Node.js and npm
-                sh 'curl -fsSL https://deb.nodesource.com/setup_16.x | bash -'
-                sh 'apt-get install -y nodejs'
+                sh "curl -fsSL https://deb.nodesource.com/setup_${NODEJS_VERSION} | bash -"
+                sh "apt-get install -y nodejs"
                 
-                // Install project dependencies
-                sh 'cd frontend && npm install'
+                // Install project dependencies for frontend
+                sh "cd frontend && npm install"
                 
-                // Run unit tests and integration tests for the frontend
-                sh 'cd frontend && npm test'
+                // Run unit tests and integration tests for frontend
+                sh "cd frontend && npm test"
             }
         }
         
