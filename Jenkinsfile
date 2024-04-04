@@ -29,8 +29,8 @@ pipeline {
         stage('Test') {
             steps {
                 // Install Node.js and npm
-                sh "curl -fsSL https://deb.nodesource.com/setup_${NODEJS_VERSION} | bash -"
-                sh "sudo apt-get install -y nodejs"
+              //  sh "curl -fsSL https://deb.nodesource.com/setup_${NODEJS_VERSION} | bash -"
+                //sh "sudo apt-get install -y nodejs"
                 
                 // Install project dependencies for frontend
                 sh "cd frontend && npm install"
