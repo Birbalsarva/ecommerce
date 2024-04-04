@@ -36,17 +36,14 @@ pipeline {
         }
         
         stage('Deploy') {
-            steps {
-                // Deploy the application using Docker Compose
-                sh 'docker-compose up -d'
-            }
-        }
+    steps {
+        // Stop the previous Docker Compose setup
+        sh 'docker-compose down'
+        
+        // Start the new Docker Compose setup
+        sh 'docker-compose up -d'
     }
-    
-    post {
-        always {
-            // Clean up after the pipeline execution
-            sh 'docker-compose down'
-        }
+}
+
     }
 }
