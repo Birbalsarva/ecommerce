@@ -42,8 +42,8 @@ pipeline {
         
         // Start the new Docker Compose setup
         sh 'docker-compose up -d'
-    }
-}
-
-    }
-}
+        
+          }
+        }
+     }
+ }
