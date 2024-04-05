@@ -1,1 +1,26 @@
+---
+- name: Deploy EcoMart application
+  hosts: web_servers
+  become: yes
+  tasks:
+    - name: Clone EcoMart repository
+      git:
+        repo: https://github.com/Birbalsarva/ecommerce.git
+        dest: /home/ubuntu/ecommerce
+      register: git_clone_result
 
+    - name: Install Node.js and npm
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nodejs
+        - npm
+      when: git_clone_result.changed
+
+    - name: Install npm dependencies
+      npm:
+        path: /home/ubuntu/ecommerce/frontend
+      when: git_clone_result.changed
+
+   
