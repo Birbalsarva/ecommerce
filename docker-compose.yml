@@ -7,15 +7,11 @@ services:
     depends_on:
       - mongodb
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/Ecommerce
-    
-
+      - MONGO_URI=mongodb://mongodb:27017/Ecommerce 
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
-    
-
   mongodb:
     image: mongo
     ports:
