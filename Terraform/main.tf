@@ -1,6 +1,3 @@
-
-# main.tf
-
 # EC2 instance
 resource "aws_instance" "ec2_instance" {
   ami           = "ami-080e1f13689e07408"  
