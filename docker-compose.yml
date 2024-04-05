@@ -8,16 +8,16 @@ services:
       - mongodb
     environment:
       - MONGO_URI=mongodb://mongodb:27017/Ecommerce
-    # Add other configuration as needed
+    
 
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
-    # Add other configuration as needed
+    
 
   mongodb:
     image: mongo
     ports:
       - "27017:27017"
-    # Add other configuration as needed
+    
