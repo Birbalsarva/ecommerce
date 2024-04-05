@@ -2,25 +2,54 @@
 - name: Deploy EcoMart application
   hosts: web_servers
   become: yes
+  
   tasks:
-    - name: Clone EcoMart repository
+    - name: Update package cache
+      apt:
+        update_cache: yes
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Install Git
+      package:
+        name: git
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Clone the repository
       git:
         repo: https://github.com/Birbalsarva/ecommerce.git
         dest: /home/ubuntu/ecommerce
-      register: git_clone_result
+        force: yes
+      register: git_clone
 
     - name: Install Node.js and npm
       apt:
-        name: "{{ item }}"
+        name: 
+          - nodejs
+          - npm
         state: present
-      loop:
-        - nodejs
-        - npm
-      when: git_clone_result.changed
+      when: ansible_distribution == 'Ubuntu'
 
-    - name: Install npm dependencies
-      npm:
-        path: /home/ubuntu/ecommerce/frontend
-      when: git_clone_result.changed
+    - name: Change directory to backend
+      become_user: "{{ ansible_user }}"
+      shell: cd /home/ubuntu/ecommerce/backend && npm install
+      args:
+        chdir: /home/ubuntu/ecommerce/backend
 
-   
+    - name: Start the backend server
+      become_user: "{{ ansible_user }}"
+      shell: cd /home/ubuntu/ecommerce/backend && node server.js
+      args:
+        chdir: /home/ubuntu/ecommerce/backend
+
+    - name: Change directory to frontend
+      become_user: "{{ ansible_user }}"
+      shell: cd /home/ubuntu/ecommerce/frontend && npm install
+      args:
+        chdir: /home/ubuntu/ecommerce/frontend
+
+    - name: Start the frontend server
+      become_user: "{{ ansible_user }}"
+      shell: cd /home/ubuntu/ecommerce/frontend && npm start
+      args:
+        chdir: /home/ubuntu/ecommerce/frontend
